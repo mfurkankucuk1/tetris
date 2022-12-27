@@ -4,6 +4,7 @@ import java.util.Random;
 
 import piece.Piece;
 import piece.PieceShape;
+import states.Score;
 
 import java.awt.*;
 
@@ -28,7 +29,7 @@ public class Field {
 			for (int col = 0; col < field[0].length; col++) {
 				if (row > 8 && this.random.nextInt(11) <= 5) {
 					this.field[row][col] = FieldSquare.STACK;
-					this.fieldColor[row][col] = Field.FIELD_COLORS[this.random.nextInt(Field.FIELD_COLORS.length)];					
+					this.fieldColor[row][col] = Field.FIELD_COLORS[this.random.nextInt(Field.FIELD_COLORS.length)];
 				} else {
 					this.field[row][col] = FieldSquare.EMPTY;
 				}
@@ -69,11 +70,18 @@ public class Field {
 				} else if (this.field[row][col].equals(FieldSquare.STACK)) {
 					g.setColor(this.fieldColor[row][col]);
 					g.fillRect(col * 30, row * 30, 30, 30);
-					g.setColor(Color.WHITE);				
+					g.setColor(Color.WHITE);
 					g.drawRect(col * 30, row * 30, 30, 30);
-				}				
+					setupScore(g);
+				}
 			}
 		}
+	}
+
+	public void setupScore(Graphics g) {
+		g.setFont(new Font("Georgia", Font.BOLD, 14));
+		g.setColor(Color.BLUE);
+		g.drawString("Score: " + Score.getInstance().getScore().toString(), 310, 20);
 	}
 
 	public boolean isPieceFallen(Piece piece) {
@@ -209,6 +217,7 @@ public class Field {
 		}
 	}
 
+	/* ABİ 1 */
 	public void destroyFullRows() {
 		for (int row = 0; row < this.field.length; row++) {
 			boolean isFullRow = true;
@@ -218,7 +227,6 @@ public class Field {
 					break;
 				}
 			}
-
 			if (isFullRow) {
 				this.shiftRows(row);
 			}
@@ -226,6 +234,7 @@ public class Field {
 	}
 
 	public void shiftRows(int startingRow) {
+		Score.getInstance().scoreCounter();
 		for (int row = startingRow; row > 0; row--) {
 			for (int col = 0; col < this.field[row].length; col++) {
 				this.field[row][col] = this.field[row - 1][col];

@@ -20,25 +20,25 @@ public abstract class PieceShape {
 		this.currentShapeIndex = currentShapeIndex;
 	}
 
-	protected abstract FieldSquare[][][] getShapes();	
-	
+	protected abstract FieldSquare[][][] getShapes();
+
 	public abstract Color getColor();
-	
-	public int getHeight() {		
+
+	public int getHeight() {
 		return this.getCurrentShape().length;
 	}
-	
-	public int getWidth() {		
+
+	public int getWidth() {
 		return this.getCurrentShape()[0].length;
 	}
-	
-	private FieldSquare[][] getCurrentShape () {
-		FieldSquare[][][] shapes = this.getShapes();	
-		FieldSquare [][] shape = shapes[this.getCurrentShapeIndex()];
-		
+
+	private FieldSquare[][] getCurrentShape() {
+		FieldSquare[][][] shapes = this.getShapes();
+		FieldSquare[][] shape = shapes[this.getCurrentShapeIndex()];
+
 		return shape;
 	}
-	
+
 	public void rotate() {
 		int currentShapeIndex = this.getCurrentShapeIndex();
 		FieldSquare[][][] shapes = this.getShapes();
@@ -60,10 +60,10 @@ public abstract class PieceShape {
 			this.setCurrentShapeIndex(currentShapeIndex - 1);
 		}
 	}
-	
+
 	public boolean isPieceBrick(int row, int col) {
 		FieldSquare[][] currentShape = this.getCurrentShape();
-		
+
 		return currentShape[row][col].equals(FieldSquare.PIECE);
 	}
 }

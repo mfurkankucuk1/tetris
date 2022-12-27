@@ -15,16 +15,16 @@ public class Game {
 
 	public static final int STARTING_PIECE_X = 4;
 	public static final int STARTING_PIECE_Y = 0;
-	
+
 	private static final int DISPLAY_WIDTH = 420;
 	private static final int DISPLAY_HEIGHT = 600;
 
 	private static final int FIELD_WIDTH = 10;
-	private static final int FIELD_HEIGHT = 20;	
-	
+	private static final int FIELD_HEIGHT = 20;
+
 	private Display display;
 	private String title;
-	private boolean running = false;	
+	private boolean running = false;
 	@SuppressWarnings("unused")
 	private InputHandler inputHandler;
 	private BufferStrategy bs;
@@ -33,20 +33,20 @@ public class Game {
 	private State menuState;
 	private State settingsState;
 	private Field field;
-	
+
 	private Piece currentPiece;
 	private Piece nextPiece;
-	
+
 	private boolean paused;
 
 	public Game(String title) {
 		this.setTitle(title);
 
 		this.field = new Field(Game.FIELD_HEIGHT, Game.FIELD_WIDTH);
-		
+
 		this.setCurrentPiece(PieceGenerator.generatePiece());
 		this.setNextPiece(PieceGenerator.generatePiece(Game.NEXT_PIECE_X, Game.NEXT_PIECE_Y));
-	}		
+	}
 
 	private String getTitle() {
 		return title;
@@ -112,11 +112,11 @@ public class Game {
 		}
 
 		Piece currentPiece = this.getCurrentPiece();
-		
+
 		if (this.field.isPieceFallen(currentPiece)) {
 			this.field.placePiece(currentPiece);
 			this.field.destroyFullRows();
-			this.swithToNextPiece();			
+			this.swithToNextPiece();
 		} else {
 			currentPiece.tick();
 		}
@@ -138,7 +138,7 @@ public class Game {
 
 		// Instantiates the graphics related to the bufferStrategy
 		this.graphics = this.bs.getDrawGraphics();
-		
+
 		// Clear the screen at every frame
 		this.graphics.clearRect(0, 0, this.display.getWidth(), this.display.getHeight());
 		// Beginning of drawing things on the screen
@@ -161,10 +161,10 @@ public class Game {
 		// Shows everything stored in the Graphics object
 		this.graphics.dispose();
 	}
-	
+
 	public void run() {
 		this.init();
-		
+
 		while (this.isRunning()) {
 			try {
 				Thread.sleep(1000);
@@ -186,15 +186,15 @@ public class Game {
 		this.paused = false;
 	}
 
-	private void swithToNextPiece() {		
+	private void swithToNextPiece() {
 		// get next piece
-		Piece nextPiece = this.getNextPiece();				
+		Piece nextPiece = this.getNextPiece();
 		// move it to the staring position of the field
-		nextPiece.movePieceToStartingPoing();									
+		nextPiece.movePieceToStartingPoing();
 		// assign the current piece to be the old next piece
-		this.setCurrentPiece(nextPiece);				
+		this.setCurrentPiece(nextPiece);
 		// create new next piece
-		this.setNextPiece(PieceGenerator.generatePiece(Game.NEXT_PIECE_X, Game.NEXT_PIECE_Y));		
+		this.setNextPiece(PieceGenerator.generatePiece(Game.NEXT_PIECE_X, Game.NEXT_PIECE_Y));
 	}
 
 	public void rotatePiece() {
