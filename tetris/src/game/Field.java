@@ -78,6 +78,7 @@ public class Field {
 		}
 	}
 
+	// Renden score
 	public void setupScore(Graphics g) {
 		g.setFont(new Font("Georgia", Font.BOLD, 14));
 		g.setColor(Color.BLUE);
@@ -217,7 +218,6 @@ public class Field {
 		}
 	}
 
-	/* ABİ 1 */
 	public void destroyFullRows() {
 		for (int row = 0; row < this.field.length; row++) {
 			boolean isFullRow = true;
